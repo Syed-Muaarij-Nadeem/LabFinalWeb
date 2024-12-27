@@ -40,7 +40,11 @@
         <% reviews.forEach(review=> { %>
             <div class="card">
                 <h3>
-                    <%= review.attraction.Name %> - <%= review.visitor.name %>
+                    <% if (review.attraction && review.visitor) { %>
+                        <%= review.attraction.Name %> - <%= review.visitor.name %>
+                                <% } else { %>
+                                    Data Missing
+                                    <% } %>
                 </h3>
                 <p><strong>Rating:</strong>
                     <%= review.score %>
@@ -49,12 +53,15 @@
                     <%= review.comment || "No comment" %>
                 </p>
                 <div class="button-container">
-                    <a href="/reviews/<%= review._id %>/edit"><button class="edit">Edit</button></a>
-                    <form action="/reviews/<%= review._id %>/delete" method="POST" style="display:inline;">
-                        <button type="submit" class="delete">Delete</button>
-                    </form>
+                    <% if (review.attraction && review.visitor) { %>
+                        <a href="/reviews/<%= review._id %>/edit"><button class="edit">Edit</button></a>
+                        <% } %>
+                            <form action="/reviews/<%= review._id %>/delete" method="POST" style="display:inline;">
+                                <button type="submit" class="delete">Delete</button>
+                            </form>
                 </div>
             </div>
+
             <% }); %>
     </div>
 
