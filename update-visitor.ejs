@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+    <h1>Update Visitor</h1>
+    <form action="/visitors/<%= visitor._id %>" method="POST">
+        <input type="text" name="name" value="<%= visitor.name %>" required>
+        <input type="email" name="email" value="<%= visitor.email %>" required>
+        <button type="submit">Update Visitor</button>
+    </form>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>

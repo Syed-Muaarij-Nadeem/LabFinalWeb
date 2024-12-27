@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attractions</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <h1>Attractions</h1>
+    <!-- Form to create a new attraction -->
+    <h2>Create a New Attraction</h2>
+    <form action="/attractions" method="POST">
+        <input type="text" name="Name" placeholder="Attraction Name" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <input type="number" name="entryFee" placeholder="Entry Fee" min="0">
+        <input type="number" name="rating" placeholder="Rating (0-5)" min="0" max="5">
+        <button type="submit">Create Attraction</button>
+    </form>
+
+    <!-- Displaying all attractions as cards -->
+    <div id="attractions">
+        <% attractions.forEach(attraction=> { %>
+            <div class="card">
+                <h3>
+                    <%= attraction.Name %>
+                </h3>
+                <p><strong>Location:</strong>
+                    <%= attraction.location %>
+                </p>
+                <p><strong>Entry Fee:</strong> $<%= attraction.entryFee %>
+                </p>
+                <p><strong>Rating:</strong>
+                    <%= attraction.rating %>
+                </p>
+                <div class="button-container">
+                    <a href="/attractions/<%= attraction._id %>/edit"><button class="edit">Edit</button></a>
+                    <form action="/attractions/<%= attraction._id %>/delete" method="POST" style="display:inline;">
+                        <button type="submit" class="delete">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>
+    </div>
+
+    <!-- Add a section for top-rated attractions in your attractions.ejs file -->
+    <h2>Top 5 Rated Attractions</h2>
+    <div id="top-rated-attractions">
+        <% attractions.forEach(attraction=> { %>
+            <div class="card">
+                <h3>
+                    <%= attraction.Name %>
+                </h3>
+                <p><strong>Location:</strong>
+                    <%= attraction.location %>
+                </p>
+                <p><strong>Entry Fee:</strong> $<%= attraction.entryFee %>
+                </p>
+                <p><strong>Rating:</strong>
+                    <%= attraction.rating %>
+                </p>
+            </div>
+            <% }); %>
+    </div>
+
+
+    <script src="/script.js"></script>
+</body>
+
+</html>

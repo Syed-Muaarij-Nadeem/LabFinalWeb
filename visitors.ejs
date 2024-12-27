@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitors</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <h1>Visitors</h1>
+
+    <!-- Button to go to visitors activity -->
+    <div id="buttons">
+        <a href="/visitors/activity"><button class="button">View Visitors Activity</button></a>
+    </div>
+
+    <!-- Form to create a new visitor -->
+    <h2>Create a New Visitor</h2>
+    <form action="/visitors" method="POST">
+        <input type="text" name="name" placeholder="Visitor Name" required>
+        <input type="email" name="email" placeholder="Visitor Email" required>
+        <button type="submit">Create Visitor</button>
+    </form>
+
+    <!-- Displaying all visitors as cards -->
+    <div id="visitors">
+        <% visitors.forEach(visitor=> { %>
+            <div class="card">
+                <h3>
+                    <%= visitor.name %>
+                </h3>
+                <p><strong>Email:</strong>
+                    <%= visitor.email %>
+                </p>
+                <div class="button-container">
+                    <a href="/visitors/<%= visitor._id %>/edit"><button class="edit">Edit</button></a>
+                    <form action="/visitors/<%= visitor._id %>/delete" method="POST" style="display:inline;">
+                        <button type="submit" class="delete">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>

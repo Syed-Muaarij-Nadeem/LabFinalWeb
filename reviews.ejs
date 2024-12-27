@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <h1>Reviews</h1>
+    <!-- Form to create a new review -->
+    <h2>Create a New Review</h2>
+    <form action="/reviews" method="POST">
+        <select name="visitor" required>
+            <option value="">Select Visitor</option>
+            <% visitors.forEach(visitor=> { %>
+                <option value="<%= visitor._id %>">
+                    <%= visitor.name %>
+                </option>
+                <% }); %>
+        </select>
+
+        <select name="attraction" required>
+            <option value="">Select Attraction</option>
+            <% attractions.forEach(attraction=> { %>
+                <option value="<%= attraction._id %>">
+                    <%= attraction.Name %>
+                </option>
+                <% }); %>
+        </select>
+        <input type="number" name="score" placeholder="Rating (1-5)" min="1" max="5" required>
+        <textarea name="comment" placeholder="Comment"></textarea>
+        <button type="submit">Create Review</button>
+    </form>
+
+    <!-- Displaying all reviews as cards -->
+    <div id="reviews">
+        <% reviews.forEach(review=> { %>
+            <div class="card">
+                <h3>
+                    <%= review.attraction.Name %> - <%= review.visitor.name %>
+                </h3>
+                <p><strong>Rating:</strong>
+                    <%= review.score %>
+                </p>
+                <p><strong>Comment:</strong>
+                    <%= review.comment || "No comment" %>
+                </p>
+                <div class="button-container">
+                    <a href="/reviews/<%= review._id %>/edit"><button class="edit">Edit</button></a>
+                    <form action="/reviews/<%= review._id %>/delete" method="POST" style="display:inline;">
+                        <button type="submit" class="delete">Delete</button>
+                    </form>
+                </div>
+            </div>
+            <% }); %>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>
