@@ -153,16 +153,29 @@ app.post('/visitors/:id/delete', async (req, res) => {
 // Route to display reviews
 app.get('/reviews', async (req, res) => {
     try {
+        // Fetch all reviews and populate attraction and visitor fields
         const reviews = await Review.find()
-            .populate('visitor') // Populate the visitor field with full visitor details
-            .populate('attraction'); // Populate the attraction field with full attraction details
+            .populate('visitor') // Populate the visitor field
+            .populate('attraction'); // Populate the attraction field
 
-        res.render('reviews', { reviews });
+        // Filter out reviews with missing attractions or visitors
+        const validReviews = reviews.filter(review => review.attraction && review.visitor);
+
+        // Fetch all visitors for the dropdown
+        const visitors = await Visitor.find();
+
+        // Fetch all attractions for the dropdown
+        const attractions = await Attraction.find();
+
+        // Render the reviews.ejs with valid data
+        res.render('reviews', { reviews: validReviews, visitors, attractions });
     } catch (err) {
         console.error(err);
         res.status(500).send('Error fetching reviews');
     }
 });
+
+
 
 
 
